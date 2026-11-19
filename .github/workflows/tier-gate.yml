@@ -1,0 +1,34 @@
+# Enforces the two-tier self-update gate mechanically (not just by prompt).
+# kit-auto PRs may only touch tier-1 paths, and only once the replay suite has >= 5 cases.
+name: tier-gate
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, unlabeled]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: MANIFEST matches synced files
+        run: |
+          diff <(grep -v '^#' MANIFEST | sort) <( (echo kit-sync.sh; git ls-files skills agents rules vm) | sort ) \
+            || { echo "::error::MANIFEST out of date: cloud sessions would miss or 404 on these files"; exit 1; }
+      - name: Check tier-1 scope
+        if: contains(github.event.pull_request.labels.*.name, 'kit-auto')
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "$changed"
+          bad=$(echo "$changed" | grep -vE '^(agents/(planner|implementer|reviewer)\.md|skills/intake/|workshop/instructions\.md|log/metrics\.md)' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::kit-auto PR touches tier-2 paths:"; echo "$bad"; exit 1
+          fi
+          cases=$(ls evals/replay/*.json 2>/dev/null | wc -l)
+          if [ "$cases" -lt 5 ]; then
+            echo "::error::only $cases replay cases; auto-merge unlocks at 5"; exit 1
+          fi
+      # Week 3: add the replay-suite job here (runs each case against the changed role prompt;
+      # fails on any regression). Until it exists, kit-auto PRs cannot pass this gate anyway.
+      - name: Replay suite (not yet built)
+        if: contains(github.event.pull_request.labels.*.name, 'kit-auto')
+        run: echo "::error::replay suite not implemented yet (week 3)"; exit 1

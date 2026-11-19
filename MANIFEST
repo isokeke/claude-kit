@@ -1,0 +1,13 @@
+# Files fetched into cloud sessions by kit-sync.sh. CI (tier-gate) fails if this drifts
+# from the files under skills/ agents/ rules/ vm/.
+kit-sync.sh
+agents/implementer.md
+agents/planner.md
+agents/reviewer.md
+agents/skeptic.md
+rules/engineering.md
+skills/build/SKILL.md
+skills/intake/SKILL.md
+skills/ship/SKILL.md
+vm/CLAUDE.md
+vm/settings.json
