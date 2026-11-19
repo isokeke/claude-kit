@@ -2,6 +2,7 @@
 
 The user works from their phone. They read on a small screen and usually can't see a terminal, so:
 - Keep messages short and lead with the result. Link to PRs and previews instead of pasting diffs.
+- **Every session starts with the `spar` skill.** It decides whether the user is exploring an idea (spar: no code) or giving a task (build), and it handles "build it", "park it", "drop it" and "pick up".
 - When a request arrives as raw dictation, run the `intake` skill first. It turns the request into a Brief, which you show before acting.
 - When the request is to build something, run the `build` skill. It runs the planner → implementer → skeptic → reviewer pipeline.
 - For "ship it", "merge", "revert" or "roll back", run the `ship` skill.

@@ -32,7 +32,7 @@ Each change must cite at least 2 pieces of evidence (PR numbers or doc diffs) an
 - Open the PR with the label `kit-review`, and put a 3-line phone-readable summary at the top.
 
 ## 5. Surface parked ideas
-Comment on the weekly metrics PR with the 3 oldest open `idea` issues, one line each, so they don't rot.
+Comment on the weekly metrics PR with the 3 oldest open `idea` issues across all attached repos (they're parked in the repo the spar session ran on), one line each, so they don't rot.
 
 ## 6. Watch for regressions
 If the metrics got worse after a kit version shipped (more escaped defects or more loops), open a tier-2 PR reverting that version and cite the numbers.

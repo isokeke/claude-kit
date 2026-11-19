@@ -51,7 +51,7 @@ The kit is fetched as plain files (listed in `MANIFEST`) from raw.githubusercont
 - Create a project called **Workshop**. Attach `ai-edge` and `claude-kit`, and select the environment from step 2.
 - Paste `workshop/instructions.md` (below the line) into Project settings → Memory → Project instructions.
 - Project threads **don't** load repo `.claude/skills`. The kit reaches them through the setup script (`~/.claude`). As a fallback, also enable the `intake`, `build` and `ship` skills on claude.ai.
-- If your account has no Projects (beta), pin one cloud session per repo and paste the same instructions as your first message.
+- **No Projects on your account (beta)?** You don't need them. The `spar` skill makes every cloud session a Workshop: a new session on a repo starts in sparring mode, and "build it" builds in that session. Point the iPhone Shortcut at `https://claude.ai/code` instead.
 
 ### 4. iPhone: one tap to talk
 - Shortcuts app → New Shortcut "Spar" → action **Open URLs** → the Workshop project's URL (copy it from the share menu at claude.ai/code).
